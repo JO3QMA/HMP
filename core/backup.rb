@@ -9,14 +9,13 @@ class Backup
     # 初期化
   end
 
-  def copy(source, target, name, ignore = nil)
+  def copy(source, target, _name, _ignore = nil)
     FileUtils.cp_r(source, target)
   end
 
-  def remove(target, keep)
+  def remove(target, _keep)
     FileUtils.rm_r(target)
   end
 
-  def compress(target, format)
-  end
+  def compress(target, format); end
 end

@@ -5,8 +5,7 @@ require 'yaml'
 # 複数のYAMLを読むのでクラスにする
 class Config
   attr_writer :path, :default_config
-  attr_reader :name, :desc
-  attr_reader :source, :tmp, :target, :time, :format, :keep
+  attr_reader :name, :desc, :source, :tmp, :target, :time, :format, :keep
 
   def initialize
     @default = YAML.load_file(default_config)['default']
@@ -42,5 +41,4 @@ class Config
     self.format = @yaml['backup']['format'] unless @yaml['backup']['format'].nil?
     self.keep   = @yaml['backup']['keep']   unless @yaml['backup']['keep'].nil?
   end
-
 end
