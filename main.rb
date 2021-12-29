@@ -1,20 +1,24 @@
 # frozen_string_literal: true
 
 require 'yaml'
-require './core/config'
+require_relative './core/config'
+require_relative './core/backup'
+require_relative './core/logger'
 
-# 人モニュメント計画
+# ヒト・モニュメント計画
 class HMP
-  def initialize(_path = './config.yml')
+  def initialize(path = './config.yml')
     # デフォルト設定の読み込み
-    @config = YAML.load_file('config.yml')
+    logger = SingletonLogger.instance
+    logger.info('初期化開始')
+    @config = YAML.load_file(path)
     @config_array = []
   end
 
   def load_subconfig(path); end
 
   def get_config_array(path = './config')
-    Dir.glob(path + '/*.yml').each do |file|
+    Dir.glob(File.join("#{path}/*.yml")).each do |file|
       @config_array << YAML.load_file(file)
     end
   end
