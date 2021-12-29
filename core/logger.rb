@@ -11,7 +11,6 @@ class SingletonLogger < Logger
   include Singleton
 
   def initialize(log_dir = './log')
-    log_path = File.join(log_dir, LOGFILE)
-    super(log_path, level: LOGLEVEL)
+    super(File.join(log_dir, LOGFILE), level: LOGLEVEL)
   end
 end

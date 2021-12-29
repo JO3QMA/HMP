@@ -9,23 +9,35 @@ require_relative './core/logger'
 class HMP
   def initialize(path = './config.yml')
     # デフォルト設定の読み込み
-    logger = SingletonLogger.instance
-    logger.info('初期化開始')
+    @logger = SingletonLogger.instance
+    @logger.info('初期化開始')
     @config = YAML.load_file(path)
-    @config_array = []
+    @logger.info('初期化完了')
   end
 
-  def load_subconfig(path); end
-
   def get_config_array(path = './config')
+    @logger.info('バックアップの設定ファイルの読み込み開始')
+    file_array = []
     Dir.glob(File.join("#{path}/*.yml")).each do |file|
-      @config_array << YAML.load_file(file)
+      file_array << file
     end
+    @logger.info('バックアップの設定ファイルの読み込み完了')
+    file_array.to_a
+  end
+
+  def run_backup(config_array)
+    @logger.info('バックアップ処理開始')
+    config_array.each do |config_path|
+      backup = Backup.new(config_path)
+      backup.main
+    end
+    @logger.info('バックアップ処理完了')
   end
 
   def main
-    @config_array = get_config_array(@config['config_dir'])
-    puts @config_array
+    @logger.info('メイン処理開始')
+    config_array = get_config_array(@config['config_dir'])
+    puts config_array
   end
 end
 
