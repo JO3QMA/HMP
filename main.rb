@@ -28,8 +28,10 @@ class HMP
   def run_backup(config_array)
     @logger.info('バックアップ処理開始')
     config_array.each do |config_path|
-      backup = Backup.new(config_path)
-      backup.main
+      @logger.info("=====#{config_path}=====")
+      config = Config.new(config_path)
+      backup = Backup.new
+      backup.copy_tmp(config.source, config.tmp, config.name)
     end
     @logger.info('バックアップ処理完了')
   end
@@ -37,6 +39,7 @@ class HMP
   def main
     @logger.info('メイン処理開始')
     config_array = get_config_array(@config['config_dir'])
+    run_backup(config_array)
     puts config_array
   end
 end
