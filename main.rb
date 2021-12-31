@@ -31,6 +31,7 @@ class HMP
       @logger.info("=====#{config_path}=====")
       config = Config.new(config_path)
       backup = Backup.new
+      backup.remove_tmp(config.tmp)
       backup.copy_tmp(config.source, config.tmp, config.name)
     end
     @logger.info('バックアップ処理完了')

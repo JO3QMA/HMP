@@ -40,5 +40,13 @@ class Config
     @time   = @yaml['backup']['time']   unless @yaml['backup']['time'].nil?
     @format = @yaml['backup']['format'] unless @yaml['backup']['format'].nil?
     @keep   = @yaml['backup']['keep']   unless @yaml['backup']['keep'].nil?
+
+    # tmpとtargetがデフォルト値の場合、nameのディレクトリーを使う
+    @tmp = File.join(@tmp, @name) if @tmp == @default['tmp']
+    @target = File.join(@target, @name) if @target == @default['target']
+  end
+
+  def info
+    ''
   end
 end
