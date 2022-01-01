@@ -21,7 +21,6 @@ class Backup
 
   def copy_tmp(source, target, name, ignore = nil)
     # 一時ディレクトリーにコピー
-    target = File.join(target, name)
     @logger.info("#{target}を作成します。")
     FileUtils.mkdir_p(target)
     copy(source, target, ignore)
