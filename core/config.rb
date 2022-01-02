@@ -32,9 +32,9 @@ class Config
     # YAMLの設定値を設定
     @name = @yaml['name']
     @desc = @yaml['description']
-
+    @source = @yaml['source']
+    
     # 設定値なない場合デフォルト値を使う
-    @source = @yaml['backup']['source'] unless @yaml['backup']['source'].nil?
     @tmp    = @yaml['backup']['tmp']    unless @yaml['backup']['tmp'].nil?
     @target = @yaml['backup']['target'] unless @yaml['backup']['target'].nil?
     @time   = @yaml['backup']['time']   unless @yaml['backup']['time'].nil?
