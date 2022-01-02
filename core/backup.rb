@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 require 'fileutils'
-require 'zip'
+require 'tmpdir'
+# require 'rubyzip'
 
 # バックアップ処理
 class Backup
@@ -19,22 +20,29 @@ class Backup
     FileUtils.rm_r(target)
   end
 
-  def copy_tmp(source, target, name, ignore = nil)
-    # 一時ディレクトリーにコピー
-    @logger.info("#{target}を作成します。")
-    FileUtils.mkdir_p(target)
-    copy(source, target, ignore)
+  def crete_tmp(name)
+    # 一時ディレクトリーを作成
+    # @tmpには一時ディレクトリーのパスが格納される
+    @tmp = Dir.mktmpdir(name)
+    @logger.info("一時ディレクトリーを作成しました。#{@tmp}")
   end
 
-  def remove_tmp(target)
+  def copy_tmp(source, ignore = nil)
+    # 一時ディレクトリーにコピー
+    copy(source, @tmp, ignore)
+  end
+
+  def remove_tmp
     # 一時ディレクトリーを削除
-    @logger.info("一時ディレクトリー(#{target})を削除します。")
-    if Dir.exist?(target) == true
-      remove(target, 0)
+    @logger.info("一時ディレクトリー(#{@tmp})を削除します。")
+    if Dir.exist?(@tmp) == true
+      remove(@tmp, 0)
     else
-      @logger.info("#{target}が存在しないためパスします。")
+      @logger.info("#{@tmp}が存在しないためパスします。")
     end
   end
 
-  def compress(target, format); end
+  def compress(target, format = 'zip')
+
+  end
 end

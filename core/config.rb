@@ -32,17 +32,15 @@ class Config
     # YAMLの設定値を設定
     @name = @yaml['name']
     @desc = @yaml['description']
-    @source = @yaml['source']
-    
+    @source = @yaml['backup']['source']
+
     # 設定値なない場合デフォルト値を使う
-    @tmp    = @yaml['backup']['tmp']    unless @yaml['backup']['tmp'].nil?
     @target = @yaml['backup']['target'] unless @yaml['backup']['target'].nil?
     @time   = @yaml['backup']['time']   unless @yaml['backup']['time'].nil?
     @format = @yaml['backup']['format'] unless @yaml['backup']['format'].nil?
     @keep   = @yaml['backup']['keep']   unless @yaml['backup']['keep'].nil?
 
-    # tmpとtargetがデフォルト値の場合、nameのディレクトリーを使う
-    @tmp = File.join(@tmp, @name) if @tmp == @default['tmp']
+    # targetがデフォルト値の場合、nameのディレクトリーを使う
     @target = File.join(@target, @name) if @target == @default['target']
   end
 
