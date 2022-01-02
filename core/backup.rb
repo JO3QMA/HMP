@@ -20,7 +20,7 @@ class Backup
     FileUtils.rm_r(target)
   end
 
-  def crete_tmp(name)
+  def create_tmp(name)
     # 一時ディレクトリーを作成
     # @tmpには一時ディレクトリーのパスが格納される
     @tmp = Dir.mktmpdir(name)

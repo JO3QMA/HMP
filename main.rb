@@ -31,7 +31,7 @@ class HMP
       @logger.info("=====#{config_path}=====")
       config = Config.new(config_path)
       backup = Backup.new
-      backup.crete_tmp(config.name)
+      backup.create_tmp(config.name)
       backup.copy_tmp(config.source)
       backup.remove_tmp
     end
