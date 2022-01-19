@@ -48,7 +48,7 @@ class Backup
   def compress(target)
     @filename = "#{@name}_#{@timestamp}.zip"
     source = @tmp
-    output = File.join(target, filename)
+    output = File.join(target, @filename)
     @logger.info("FileName: #{@filename}, Output: #{output}")
     @logger.info("#{source}を#{output}に圧縮します。")
     FileUtils.mkdir_p(target)
@@ -57,6 +57,6 @@ class Backup
   end
 
   def parser_rm_file(filename)
-    
+
   end
 end
