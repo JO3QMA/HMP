@@ -28,7 +28,7 @@ class HMP
   def run_backup(config_array)
     @logger.info('バックアップ処理開始')
     config_array.each do |config_path|
-      @logger.info("=====#{config_path}=====")
+      @logger.info("====={ \"#{config_path}\" }=====")
       config = Config.new(config_path)
       backup = Backup.new(config.name)
       backup.create_tmp
