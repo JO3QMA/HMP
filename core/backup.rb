@@ -2,13 +2,14 @@
 
 require 'fileutils'
 require 'tmpdir'
-# require 'rubyzip'
+require_relative './zip'
 
 # バックアップ処理
 class Backup
-  def initialize
+  def initialize(name)
     # 初期化
     @logger = SingletonLogger.instance
+    @name = name
   end
 
   def copy(source, target, _ignore = nil)
@@ -20,15 +21,17 @@ class Backup
     FileUtils.rm_r(target)
   end
 
-  def create_tmp(name)
+  def create_tmp
     # 一時ディレクトリーを作成
     # @tmpには一時ディレクトリーのパスが格納される
-    @tmp = Dir.mktmpdir(name)
+    @tmp = Dir.mktmpdir(@name)
     @logger.info("一時ディレクトリーを作成しました。#{@tmp}")
   end
 
   def copy_tmp(source, ignore = nil)
     # 一時ディレクトリーにコピー
+    # @timestampにはコピーした日時を格納する。
+    @timestamp = Time.now.strftime('%Y-%m-%d_%H-%M-%S')
     copy(source, @tmp, ignore)
   end
 
@@ -42,7 +45,18 @@ class Backup
     end
   end
 
-  def compress(target, format = 'zip')
+  def compress(target)
+    @filename = "#{@name}_#{@timestamp}.zip"
+    source = @tmp
+    output = File.join(target, filename)
+    @logger.info("FileName: #{@filename}, Output: #{output}")
+    @logger.info("#{source}を#{output}に圧縮します。")
+    FileUtils.mkdir_p(target)
+    zip_file_generator = ZipFileGenerator.new(source, output)
+    zip_file_generator.write
+  end
 
+  def parser_rm_file(filename)
+    
   end
 end

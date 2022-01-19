@@ -30,9 +30,10 @@ class HMP
     config_array.each do |config_path|
       @logger.info("=====#{config_path}=====")
       config = Config.new(config_path)
-      backup = Backup.new
-      backup.create_tmp(config.name)
+      backup = Backup.new(config.name)
+      backup.create_tmp
       backup.copy_tmp(config.source)
+      backup.compress(config.target)
       backup.remove_tmp
     end
     @logger.info('バックアップ処理完了')
