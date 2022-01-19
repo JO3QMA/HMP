@@ -33,9 +33,12 @@ class HMP
       backup = Backup.new(config.name)
       backup.create_tmp
       backup.copy_tmp(config.source)
-      backup.compress(config.target)
+      backup.compress
+      backup.copy_zip(config.target)
       backup.remove_tmp
+      backup.remove_history(config.target, config.keep)
     end
+    @logger.info('==========')
     @logger.info('バックアップ処理完了')
   end
 

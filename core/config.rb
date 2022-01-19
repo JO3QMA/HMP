@@ -21,17 +21,17 @@ class Config
   def set_default_value
     # デフォルト値を設定
     @source = @default['source']
-    @tmp = @default['tmp']
+    @tmp    = @default['tmp']
     @target = @default['target']
-    @time = @default['time']
+    @time   = @default['time']
     @format = @default['format']
-    @keep = @default['keep']
+    @keep   = @default['keep']
   end
 
   def set_value
     # YAMLの設定値を設定
-    @name = @yaml['name']
-    @desc = @yaml['description']
+    @name   = @yaml['name']
+    @desc   = @yaml['description']
     @source = @yaml['backup']['source']
 
     # 設定値なない場合デフォルト値を使う
